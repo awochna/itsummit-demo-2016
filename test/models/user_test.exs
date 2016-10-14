@@ -3,7 +3,7 @@ defmodule SummitChat.UserTest do
 
   alias SummitChat.User
 
-  @valid_attrs %{email: "some content", name: "some content", password: "some content", password_hash: "some content", username: "some content"}
+  @valid_attrs %{email: "some content", name: "some content", password: "some content", username: "some content"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
@@ -14,5 +14,10 @@ defmodule SummitChat.UserTest do
   test "changeset with invalid attributes" do
     changeset = User.changeset(%User{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  test "generates a gravatar url" do
+    changeset = User.changeset(%User{}, @valid_attrs)
+    refute changeset.changes.gravatar == nil
   end
 end

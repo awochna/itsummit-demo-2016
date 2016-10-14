@@ -15,9 +15,14 @@ defmodule SummitChat.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Sign up successful!")
-        |> redirect(to: user_path(conn, :index))
+        |> redirect(to: page_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
+  end
+
+  def show(conn, %{"id" => id}) do
+    user = Repo.get!(User, id)
+    render conn, "show.html", user: user
   end
 end

@@ -7,6 +7,7 @@ defmodule SummitChat.User do
     field :email, :string
     field :password, :string, virtual: true
     field :password_hash, :string
+    field :gravatar, :string
 
     timestamps()
   end
@@ -16,12 +17,13 @@ defmodule SummitChat.User do
 
   Does not include password.
   """
-  def changeset(struct, params \\ %{}) do
+  def changeset(struct, params \\ :empty) do
     struct
     |> cast(params, [:name, :username, :email], [])
     |> validate_required([:username, :email])
     |> validate_length(:username, min: 1, max: 20)
     |> unique_constraint(:username)
+    |> put_gravatar()
   end
 
   @doc """
@@ -40,6 +42,19 @@ defmodule SummitChat.User do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
       _ ->
+        changeset
+    end
+  end
+
+  defp put_gravatar(changeset) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{email: email}} ->
+        hash =
+          :crypto.hash(:md5, email)
+          |> Base.encode16
+          |> String.downcase
+        put_change(changeset, :gravatar, hash)
+      _ -> 
         changeset
     end
   end
