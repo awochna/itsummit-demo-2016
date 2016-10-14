@@ -26,6 +26,7 @@ defmodule SummitChat.ConnCase do
       import Ecto.Query
 
       import SummitChat.Router.Helpers
+      import SummitChat.TestHelpers
 
       # The default endpoint for testing
       @endpoint SummitChat.Endpoint

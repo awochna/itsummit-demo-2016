@@ -9,6 +9,10 @@ config :summit_chat, SummitChat.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Drop requirements for password hashing intensiveness.
+config :comeonin, :bcrypt_log_rounds, 4
+config :comeonin, :pbkdf2_rounds, 1
+
 # Configure your database
 config :summit_chat, SummitChat.Repo,
   adapter: Ecto.Adapters.Postgres,
