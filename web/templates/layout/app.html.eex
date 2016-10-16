@@ -7,29 +7,45 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Hello SummitChat!</title>
+    <title>SummitChat</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+    <link rel="stylesheet" href="//brand.arizona.edu/sites/all/themes/brand/ua-brand-icons/ua-brand-icons.css">
+    <link rel="stylesheet" href="//bitbucket.org/uadigital/ua-bootstrap/downloads/ua-bootstrap-1.0.0-beta1.min.css">
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+    <nav class="navbar navbar-default navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="text">MAIN MENU</span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link "Register", to: user_path(@conn, :new) %></li>
           </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+        </div>
+      </div>
+    </nav>
 
+    <% if get_flash(@conn, :info) do %>
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+    <% end %>
+    <% if get_flash(@conn, :error) do %>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <% end %>
 
+    <div class="container">
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
+    </div>
 
-    </div> <!-- /container -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

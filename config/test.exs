@@ -17,7 +17,7 @@ config :comeonin, :pbkdf2_rounds, 1
 config :summit_chat, SummitChat.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "postgres",
+  password: "password",
   database: "summit_chat_test",
-  hostname: "localhost",
+  hostname: "172.17.0.2",
   pool: Ecto.Adapters.SQL.Sandbox
