@@ -21,6 +21,7 @@ defmodule SummitChat.ModelCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import SummitChat.TestHelpers
       import SummitChat.ModelCase
     end
   end
