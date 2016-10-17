@@ -7,6 +7,7 @@ defmodule SummitChat.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug SummitChat.Auth, repo: SummitChat.Repo
   end
 
   pipeline :api do

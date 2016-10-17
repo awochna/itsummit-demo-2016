@@ -17,12 +17,13 @@ defmodule SummitChat.User do
 
   Does not include password.
   """
-  def changeset(struct, params \\ :empty) do
+  def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :username, :email], [])
     |> validate_required([:username, :email])
     |> validate_length(:username, min: 1, max: 20)
     |> unique_constraint(:username)
+    |> unique_constraint(:email)
     |> put_gravatar()
   end
 

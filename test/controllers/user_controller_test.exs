@@ -26,7 +26,7 @@ defmodule SummitChat.UserControllerTest do
 
   test "fails with non-unique username", %{conn: conn} do
     username = %{username: @valid_attrs.username}
-    insert_user(username)
+    _ = insert_user(username)
     before_count = user_count(User)
     conn = post conn, user_path(conn, :create), user: @valid_attrs
     assert html_response(conn, 200) =~ "Sign up"
@@ -36,7 +36,7 @@ defmodule SummitChat.UserControllerTest do
 
   test "fails with non-unique email address", %{conn: conn} do
     email = %{email: @valid_attrs.email}
-    insert_user(email)
+    _ = insert_user(email)
     before_count = user_count(User)
     conn = post conn, user_path(conn, :create), user: @valid_attrs
     assert html_response(conn, 200) =~ "Sign up"
