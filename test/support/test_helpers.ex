@@ -14,4 +14,10 @@ defmodule SummitChat.TestHelpers do
     |> SummitChat.User.registration_changeset(changes)
     |> Repo.insert!()
   end
+
+  def insert_message(user, attrs \\ %{}) do
+    user
+    |> Ecto.build_assoc(:messages, attrs)
+    |> Repo.insert!()
+  end
 end

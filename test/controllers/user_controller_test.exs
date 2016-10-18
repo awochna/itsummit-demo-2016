@@ -8,6 +8,16 @@ defmodule SummitChat.UserControllerTest do
 
   defp user_count(query), do: Repo.one(from u in query, select: count(u.id))
 
+  setup %{conn: conn} = config do
+    if username = config[:login_as] do
+      user = insert_user(username: username)
+      conn = assign(conn, :current_user, user)
+      {:ok, conn: conn, user: user}
+    else
+      :ok
+    end
+  end
+
   test "renders form for registering", %{conn: conn} do
     conn = get conn, user_path(conn, :new)
     assert html_response(conn, 200) =~ "Sign up"
@@ -15,7 +25,7 @@ defmodule SummitChat.UserControllerTest do
 
   test "creates a new user when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == page_path(conn, :index)
+    assert redirected_to(conn) == chat_path(conn, :index)
     assert Repo.get_by(User, %{email: @valid_attrs.email})
   end
 
@@ -44,6 +54,7 @@ defmodule SummitChat.UserControllerTest do
     assert user_count(User) == before_count
   end
 
+  @tag login_as: "alex"
   test "shows requested user", %{conn: conn} do
     user = insert_user()
     conn = get conn, user_path(conn, :show, user)
@@ -54,9 +65,10 @@ defmodule SummitChat.UserControllerTest do
     refute html_response(conn, 200) =~ user.password_hash
   end
 
+  @tag login_as: "alex"
   test "gives 404 for non-existent user", %{conn: conn} do
     assert_error_sent :not_found, fn ->
-      get conn, user_path(conn, :show, 150)
+      get conn, user_path(conn, :show, 9999)
     end
   end
 end

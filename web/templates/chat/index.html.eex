@@ -1,0 +1,13 @@
+<h2>2016 IT Summit Chat Room</h2>
+<div class="row">
+  <div class="col-sm-12">
+    <div id="msg-container" class="panel-body messages">
+    </div>
+    <div class="panel-footer">
+      <textarea id="msg-input" rows="3" class="form-control", placeholder="Message..."></textarea>
+      <button id="msg-submit" class="btn btn-primary form-control" type="submit">
+        Send
+      </button>
+    </div>
+  </div>
+</div>

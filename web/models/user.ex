@@ -8,6 +8,7 @@ defmodule SummitChat.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :gravatar, :string
+    has_many :messages, SummitChat.Message
 
     timestamps()
   end

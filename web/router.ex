@@ -21,6 +21,7 @@ defmodule SummitChat.Router do
 
     resources "/users", UserController, only: [:show, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    get "/chat", ChatController, :index
   end
 
   # Other scopes may use custom stacks.

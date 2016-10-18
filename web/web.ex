@@ -36,6 +36,7 @@ defmodule SummitChat.Web do
 
       import SummitChat.Router.Helpers
       import SummitChat.Gettext
+      import SummitChat.Auth, only: [authenticate_user: 2]
     end
   end
 
@@ -58,6 +59,8 @@ defmodule SummitChat.Web do
   def router do
     quote do
       use Phoenix.Router
+
+      import SummitChat.Auth, only: [authenticate_user: 2]
     end
   end
 
